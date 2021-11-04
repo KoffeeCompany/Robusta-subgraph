@@ -1,0 +1,39 @@
+type Option @entity {
+  id: ID!
+  status: OptionStatus!
+  maker: String!
+  strike: BigInt!
+  optionType: OptionType!
+  notional: BigInt!
+  maturity: BigInt!
+  feeToken: String!
+  resolver: String!
+  price: BigInt!
+  maxFeeAmount: BigInt!
+  feeAmount: BigInt
+  amount0: BigInt
+  amount1: BigInt
+  pool: String
+  token0: String
+  token1: String
+  poolFee: BigInt
+  submittedTxHash: Bytes!
+  executedTxHash: Bytes
+  cancelledTxHash: Bytes
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  createdAtBlock: BigInt!
+  updatedAtBlock: BigInt!
+  updatedAtBlockHash: String!
+}
+
+enum OptionStatus @entity {
+  submitted
+  executed
+  cancelled
+}
+
+enum OptionType @entity {
+  CALL
+  PUT
+}
