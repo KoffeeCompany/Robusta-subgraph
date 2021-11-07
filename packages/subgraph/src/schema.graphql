@@ -1,15 +1,41 @@
-type Purpose @entity {
+type Option @entity {
   id: ID!
-  sender: Sender!
-  purpose: String!
+  status: OptionStatus!
+  maker: String!
+  buyer: String!
+  strike: BigInt!
+  optionType: OptionType!
+  notional: BigInt!
+  maturity: BigInt!
+  feeToken: String!
+  resolver: String!
+  price: BigInt!
+  maxFeeAmount: BigInt!
+  feeAmount: BigInt
+  amount0: BigInt
+  amount1: BigInt
+  pool: String
+  token0: String
+  token1: String
+  poolFee: BigInt
+  submittedTxHash: Bytes!
+  executedTxHash: Bytes
+  cancelledTxHash: Bytes
   createdAt: BigInt!
-  transactionHash: String!
+  updatedAt: BigInt!
+  createdAtBlock: BigInt!
+  updatedAtBlock: BigInt!
+  updatedAtBlockHash: Bytes!
 }
 
-type Sender @entity {
-  id: ID!
-  address: Bytes!
-  purposes: [Purpose!] @derivedFrom(field: "sender")
-  createdAt: BigInt!
-  purposeCount: BigInt!
+enum OptionStatus @entity {
+  submitted
+  bought
+  executed
+  cancelled
+}
+
+enum OptionType @entity {
+  CALL
+  PUT
 }
