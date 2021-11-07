@@ -26,6 +26,6 @@ export function extractAddressFromBytes32(data: string, offset: i32): string {
   return "0x" + extractData(data, offset + 12, 20);
 }
 
-export function extractBoolean(data: string, offset: i32, length: i32): boolean {
-  return (new Boolean(extractData(data, offset + 31, 1))).valueOf();
+export function extractBoolean(data: string, offset: i32): boolean {
+  return extractData(data, offset + 31, 1) == "1";
 }

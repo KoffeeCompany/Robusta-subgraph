@@ -2,6 +2,7 @@ type Option @entity {
   id: ID!
   status: OptionStatus!
   maker: String!
+  buyer: String!
   strike: BigInt!
   optionType: OptionType!
   notional: BigInt!
@@ -24,11 +25,12 @@ type Option @entity {
   updatedAt: BigInt!
   createdAtBlock: BigInt!
   updatedAtBlock: BigInt!
-  updatedAtBlockHash: String!
+  updatedAtBlockHash: Bytes!
 }
 
 enum OptionStatus @entity {
   submitted
+  bought
   executed
   cancelled
 }

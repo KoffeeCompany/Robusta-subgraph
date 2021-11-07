@@ -60,6 +60,15 @@ export class Option extends Entity {
     this.set("maker", Value.fromString(value));
   }
 
+  get buyer(): string {
+    let value = this.get("buyer");
+    return value.toString();
+  }
+
+  set buyer(value: string) {
+    this.set("buyer", Value.fromString(value));
+  }
+
   get strike(): BigInt {
     let value = this.get("strike");
     return value.toBigInt();
@@ -330,12 +339,12 @@ export class Option extends Entity {
     this.set("updatedAtBlock", Value.fromBigInt(value));
   }
 
-  get updatedAtBlockHash(): string {
+  get updatedAtBlockHash(): Bytes {
     let value = this.get("updatedAtBlockHash");
-    return value.toString();
+    return value.toBytes();
   }
 
-  set updatedAtBlockHash(value: string) {
-    this.set("updatedAtBlockHash", Value.fromString(value));
+  set updatedAtBlockHash(value: Bytes) {
+    this.set("updatedAtBlockHash", Value.fromBytes(value));
   }
 }

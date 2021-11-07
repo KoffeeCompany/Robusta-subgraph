@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: Aave Protection Subgraph
-repository: https://github.com/gelatodigital/aave-protection-subgraph
+description: Option
+repository: https://github.com/KoffeeCompany/Robusta-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -20,6 +20,8 @@ dataSources:
       abis:
         - name: Option
           file: ./abis/Option.json
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
       eventHandlers:
         - event: LogOptionCreation(indexed uint256,(indexed address,uint8,int24,uint256,uint256,address,address,uint256),address)
           handler: handleLogCreateOption
