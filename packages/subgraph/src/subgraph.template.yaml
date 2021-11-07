@@ -1,0 +1,30 @@
+specVersion: 0.0.2
+description: Robusta Subgraph
+repository: https://github.com/KoffeeCompany/Robusta-subgraph
+schema:
+  file: ./src/schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Option
+    network: "mainnet"
+    source:
+      address: "{{option}}"
+      abi: Option
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Option
+      abis:
+        - name: Option
+          file: ./abis/Option.json
+      eventHandlers:
+        - event: LogOptionCreation(indexed uint256,(indexed address,uint8,int24,uint256,uint256,address,address,uint256),address)
+          handler: handleLogCreateOption
+        - event: LogSettle(indexed uint256,uint256,uint256,uint256)
+          handler: handleLogSettle
+        - event: LogCancel(indexed uint256)
+          handler: handleLogCancel
+      file: ./src/mappings/optionMapping.ts
