@@ -3,38 +3,12 @@
   "version": "0.1.0-beta02",
   "keywords": [
     "ethereum",
-    "react",
     "uniswap",
     "workspaces",
     "yarn"
   ],
   "private": true,
   "scripts": {
-    "build": "yarn workspace @robusta/vite-app build",
-    "serve": "yarn workspace @robusta/vite-app serve",
-    "chain": "yarn workspace @robusta/hardhat chain",
-    "fork": "yarn workspace @robusta/hardhat fork",
-    "node": "yarn workspace @robusta/hardhat chain",
-    "test": "yarn workspace @robusta/hardhat test",
-    "start": "yarn workspace @robusta/vite-app start",
-    "compile": "yarn workspace @robusta/hardhat compile",
-    "export": "yarn workspace @robusta/hardhat export",
-    "deploy": "yarn workspace @robusta/hardhat deploy",
-    "watch": "yarn workspace @robusta/hardhat watch",
-    "accounts": "yarn workspace @robusta/hardhat accounts",
-    "balance": "yarn workspace @robusta/hardhat balance",
-    "send": "yarn workspace @robusta/hardhat send",
-    "ipfs": "yarn workspace @robusta/vite-app ipfs",
-    "surge": "yarn workspace @robusta/vite-app surge",
-    "s3": "yarn workspace @robusta/vite-app s3",
-    "ship": "yarn workspace @robusta/vite-app ship",
-    "generate": "yarn workspace @robusta/hardhat generate",
-    "account": "yarn workspace @robusta/hardhat account",
-    "mine": "cd packages/hardhat-ts && npx hardhat mine",
-    "wallet": "cd packages/hardhat-ts && npx hardhat wallet",
-    "fundedwallet": "cd packages/hardhat-ts && npx hardhat fundedwallet",
-    "flatten": "cd packages/hardhat-ts && npx hardhat flatten",
-    "clean": "cd packages/hardhat-ts && npx hardhat clean",
     "run-graph-node": "yarn workspace @robusta/services run-graph-node",
     "remove-graph-node": "yarn workspace @robusta/services remove-graph-node",
     "clean-graph-node": "yarn workspace @robusta/services clean-graph-node",
@@ -44,15 +18,10 @@
     "graph-create-local": "yarn workspace @robusta/subgraph graph create --node http://localhost:8020/ robusta/option",
     "graph-remove-local": "yarn workspace @robusta/subgraph graph remove --node http://localhost:8020/ robusta/option",
     "graph-deploy-local": "yarn workspace @robusta/subgraph graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 robusta/option",
-    "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local",
-    "deploy-and-graph": "yarn deploy && yarn graph-ship-local",
-    "theme": "yarn workspace @robusta/react-app theme",
-    "watch-theme": "yarn workspace @robusta/react-app watch"
+    "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local"
   },
   "workspaces": {
     "packages": [
-      "packages/hardhat-ts",
-      "packages/vite-app-ts",
       "packages/services",
       "packages/subgraph"
     ]
