@@ -67,12 +67,46 @@ export class LogOptionCreation__Params {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get option(): Bytes {
-    return this._event.parameters[1].value.toBytes();
+  get option(): LogOptionCreationOptionStruct {
+    return this._event.parameters[1].value.toTuple() as LogOptionCreationOptionStruct;
   }
 
   get sender(): Address {
     return this._event.parameters[2].value.toAddress();
+  }
+}
+
+export class LogOptionCreationOptionStruct extends ethereum.Tuple {
+  get pool(): Address {
+    return this[0].toAddress();
+  }
+
+  get optionType(): i32 {
+    return this[1].toI32();
+  }
+
+  get strike(): i32 {
+    return this[2].toI32();
+  }
+
+  get notional(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get maturity(): BigInt {
+    return this[4].toBigInt();
+  }
+
+  get maker(): Address {
+    return this[5].toAddress();
+  }
+
+  get resolver(): Address {
+    return this[6].toAddress();
+  }
+
+  get price(): BigInt {
+    return this[7].toBigInt();
   }
 }
 
@@ -106,6 +140,40 @@ export class LogSettle__Params {
   }
 }
 
+export class Option__canSettleInputOptionData_Struct extends ethereum.Tuple {
+  get pool(): Address {
+    return this[0].toAddress();
+  }
+
+  get optionType(): i32 {
+    return this[1].toI32();
+  }
+
+  get strike(): i32 {
+    return this[2].toI32();
+  }
+
+  get notional(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get maturity(): BigInt {
+    return this[4].toBigInt();
+  }
+
+  get maker(): Address {
+    return this[5].toAddress();
+  }
+
+  get resolver(): Address {
+    return this[6].toAddress();
+  }
+
+  get price(): BigInt {
+    return this[7].toBigInt();
+  }
+}
+
 export class Option extends ethereum.SmartContract {
   static bind(address: Address): Option {
     return new Option("Option", address);
@@ -123,6 +191,56 @@ export class Option extends ethereum.SmartContract {
     let result = super.tryCall("buyers", "buyers(bytes32):(address)", [
       ethereum.Value.fromFixedBytes(param0)
     ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  canSettle(
+    tokenId_: BigInt,
+    optionData_: Option__canSettleInputOptionData_Struct
+  ): boolean {
+    let result = super.call(
+      "canSettle",
+      "canSettle(uint256,(address,uint8,int24,uint256,uint256,address,address,uint256)):(bool)",
+      [
+        ethereum.Value.fromUnsignedBigInt(tokenId_),
+        ethereum.Value.fromTuple(optionData_)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_canSettle(
+    tokenId_: BigInt,
+    optionData_: Option__canSettleInputOptionData_Struct
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "canSettle",
+      "canSettle(uint256,(address,uint8,int24,uint256,uint256,address,address,uint256)):(bool)",
+      [
+        ethereum.Value.fromUnsignedBigInt(tokenId_),
+        ethereum.Value.fromTuple(optionData_)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  gelato(): Address {
+    let result = super.call("gelato", "gelato():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_gelato(): ethereum.CallResult<Address> {
+    let result = super.tryCall("gelato", "gelato():(address)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -186,16 +304,20 @@ export class ConstructorCall__Inputs {
     this._call = call;
   }
 
-  get positionManager_(): Address {
+  get gelato_(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get pokeMe_(): Address {
+  get positionManager_(): Address {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get WETH9_(): Address {
+  get pokeMe_(): Address {
     return this._call.inputValues[2].value.toAddress();
+  }
+
+  get WETH9_(): Address {
+    return this._call.inputValues[3].value.toAddress();
   }
 }
 

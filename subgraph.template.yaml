@@ -23,7 +23,7 @@ dataSources:
         - name: UniswapV3Pool
           file: ./abis/UniswapV3Pool.json
       eventHandlers:
-        - event: LogOptionCreation(indexed uint256,(indexed address,uint8,int24,uint256,uint256,address,address,uint256),address)
+        - event: LogOptionCreation(indexed uint256,(address,uint8,int24,uint256,uint256,address,address,uint256),address)
           handler: handleLogCreateOption
         - event: LogSettle(indexed uint256,uint256,uint256,uint256)
           handler: handleLogSettle

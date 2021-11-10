@@ -12,7 +12,6 @@ import {
 import {
   extractBigInt,
   extractAddressFromBytes32,
-  extractBoolean,
 } from "../utils/helpers";
 
 export function handleLogCreateOption(event: LogOptionCreation): void {
