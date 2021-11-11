@@ -12,7 +12,6 @@ import {
 import {
   extractBigInt,
   extractAddressFromBytes32,
-  extractBoolean,
 } from "../utils/helpers";
 
 export function handleLogCreateOption(event: LogOptionCreation): void {
@@ -31,23 +30,15 @@ export function handleLogCreateOption(event: LogOptionCreation): void {
   entity.updatedAtBlock = event.block.number;
   entity.updatedAtBlockHash = event.block.hash;
 
-  let offset: i32 = 1; // Don't take into account 0x.
-  let optionData: string = event.params.option.toHexString();
-  entity.pool = extractAddressFromBytes32(optionData, offset);
-  offset += 32;
-  entity.optionType = extractBigInt(optionData, offset, 32).toString();
-  offset += 32;
-  entity.strike = extractBigInt(optionData, offset, 32);
-  offset += 32;
-  entity.notional = extractBigInt(optionData, offset, 32);
-  offset += 32;
-  entity.maturity = extractBigInt(optionData, offset, 32);
-  offset += 32;
-  entity.maker = extractAddressFromBytes32(optionData, offset);
-  offset += 32;
-  entity.resolver = extractAddressFromBytes32(optionData, offset);
-  offset += 32;
-  entity.price = extractBigInt(optionData, offset, 32);
+  entity.pool = event.params.option.pool.toHexString();
+  entity.optionType = event.params.option.optionType == 0 ? "CALL" : "PUT";
+  entity.strike = BigInt.fromI32(event.params.option.strike);
+  entity.notional = event.params.option.notional;
+  entity.maturity = event.params.option.maturity;
+  entity.maker = event.params.option.maker.toHexString();
+  entity.resolver = event.params.option.resolver.toHexString();
+  entity.price = event.params.option.price;
+
 
   entity.status = 'submitted';
 

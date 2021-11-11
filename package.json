@@ -12,12 +12,12 @@
     "run-graph-node": "yarn workspace @robusta/services run-graph-node",
     "remove-graph-node": "yarn workspace @robusta/services remove-graph-node",
     "clean-graph-node": "yarn workspace @robusta/services clean-graph-node",
-    "graph-prepare": "mustache packages/subgraph/config/config.json packages/subgraph/src/subgraph.template.yaml > packages/subgraph/subgraph.yaml",
-    "graph-codegen": "yarn workspace @robusta/subgraph graph codegen",
-    "graph-build": "yarn workspace @robusta/subgraph graph build",
-    "graph-create-local": "yarn workspace @robusta/subgraph graph create --node http://localhost:8020/ robusta/option",
-    "graph-remove-local": "yarn workspace @robusta/subgraph graph remove --node http://localhost:8020/ robusta/option",
-    "graph-deploy-local": "yarn workspace @robusta/subgraph graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 robusta/option",
+    "graph-prepare": "yarn workspace @robusta/subgraph graph-prepare",
+    "graph-codegen": "yarn workspace @robusta/subgraph codegen",
+    "graph-build": "yarn workspace @robusta/subgraph build",
+    "graph-create-local": "yarn workspace @robusta/subgraph create-local",
+    "graph-remove-local": "yarn workspace @robusta/subgraph remove-local",
+    "graph-deploy-local": "yarn workspace @robusta/subgraph deploy-local",
     "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local"
   },
   "workspaces": {

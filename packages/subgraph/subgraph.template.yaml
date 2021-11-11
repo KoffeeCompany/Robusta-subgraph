@@ -1,0 +1,32 @@
+specVersion: 0.0.2
+description: Option
+repository: https://github.com/KoffeeCompany/Robusta-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Option
+    network: {{network}}
+    source:
+      address: "{{option}}"
+      abi: Option
+      startBlock: {{optionStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Option
+      abis:
+        - name: Option
+          file: ./abis/Option.json
+        - name: UniswapV3Pool
+          file: ./abis/UniswapV3Pool.json
+      eventHandlers:
+        - event: LogOptionCreation(indexed uint256,(address,uint8,int24,uint256,uint256,address,address,uint256),address)
+          handler: handleLogCreateOption
+        - event: LogSettle(indexed uint256,uint256,uint256,uint256)
+          handler: handleLogSettle
+        - event: LogCancel(indexed uint256)
+          handler: handleLogCancel
+      file: ./src/mappings/optionMapping.ts

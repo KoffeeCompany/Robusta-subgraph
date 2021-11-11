@@ -1,16 +1,16 @@
 specVersion: 0.0.2
-description: Robusta Subgraph
+description: Option
 repository: https://github.com/KoffeeCompany/Robusta-subgraph
 schema:
-  file: ./src/schema.graphql
+  file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Option
-    network: "mainnet"
+    network: mainnet
     source:
-      address: "0xD8a5a9b31c3C0232E196d518E89Fd8bF83AcAd43"
+      address: "0xE3d373c78803C1d22cE96bdC43d47542835bBF42"
       abi: Option
-      startBlock: 1
+      startBlock: 13018036
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -23,7 +23,7 @@ dataSources:
         - name: UniswapV3Pool
           file: ./abis/UniswapV3Pool.json
       eventHandlers:
-        - event: LogOptionCreation(indexed uint256,(indexed address,uint8,int24,uint256,uint256,address,address,uint256),address)
+        - event: LogOptionCreation(indexed uint256,(address,uint8,int24,uint256,uint256,address,address,uint256),address)
           handler: handleLogCreateOption
         - event: LogSettle(indexed uint256,uint256,uint256,uint256)
           handler: handleLogSettle
