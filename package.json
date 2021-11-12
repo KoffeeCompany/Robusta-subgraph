@@ -13,17 +13,18 @@
     "remove-graph-node": "yarn workspace @robusta/services remove-graph-node",
     "clean-graph-node": "yarn workspace @robusta/services clean-graph-node",
     "graph-prepare": "yarn workspace @robusta/subgraph graph-prepare",
-    "graph-codegen": "yarn workspace @robusta/subgraph codegen",
-    "graph-build": "yarn workspace @robusta/subgraph build",
-    "graph-create-local": "yarn workspace @robusta/subgraph create-local",
+    "graph-codegen": "yarn workspace @robusta/subgraph codegen && yarn workspace @robusta/uniswapv3-subgraph codegen",
+    "graph-build": "yarn workspace @robusta/subgraph build && yarn workspace @robusta/uniswapv3-subgraph build",
+    "graph-create-local": "yarn workspace @robusta/subgraph create-local && yarn workspace @robusta/uniswapv3-subgraph create-local",
     "graph-remove-local": "yarn workspace @robusta/subgraph remove-local",
-    "graph-deploy-local": "yarn workspace @robusta/subgraph deploy-local",
-    "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local"
+    "graph-deploy-local": "yarn workspace @robusta/subgraph deploy-local && yarn workspace @robusta/uniswapv3-subgraph deploy-local",
+    "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-create-local && yarn graph-deploy-local"
   },
   "workspaces": {
     "packages": [
       "packages/services",
-      "packages/subgraph"
+      "packages/subgraph",
+      "packages/uniswapv3-subgraph"
     ]
   },
   "packageManager": "yarn@3.0.2",
